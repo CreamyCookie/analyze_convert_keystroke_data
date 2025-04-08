@@ -29,37 +29,48 @@ KEYS_PERCENTAGE_BELOW = 0.99
 event_after_this_one_was_removed = set()
 
 
-def print_stats(durations, fmt=DURATION_NUM_FMT):
-    if not durations:
+def print_stats(numbers, fmt=DURATION_NUM_FMT):
+    if not numbers:
         print("was empty\n")
         return
 
-    sorted_durations = sorted(durations)
-    most_below = perc_below(sorted_durations)
+    sorted_numbers = sorted(numbers)
+    most_below = perc_below(sorted_numbers)
+
+    min_value = sorted_numbers[0]
+    max_value = sorted_numbers[-1]
+    count = len(sorted_numbers)
+    total_sum = sum(sorted_numbers)
+    avg = total_sum / count
+
+    mid = count // 2
+    if count > 1 and count % 2 == 0:
+        median = (sorted_numbers[mid - 1] + sorted_numbers[mid]) / 2
+    else:
+        median = sorted_numbers[mid]
 
     num_below = trim_trailing_zero(KEYS_PERCENTAGE_BELOW * 100)
-
     print_table([
         ['min', 'max', 'avg', 'median', f'{num_below}% below'],
         None,
         [
-            f"{min(durations):{fmt}}",
-            f"{max(durations):{fmt}}",
-            f"{mean(durations):{fmt}}",
-            f"{median(durations):{fmt}}",
+            f"{min_value:{fmt}}",
+            f"{max_value:{fmt}}",
+            f"{avg:{fmt}}",
+            f"{median:{fmt}}",
             f"{most_below:{fmt}}",
         ]
     ])
     print()
 
 
-def perc_below(sorted_durations):
-    i = len(sorted_durations) * KEYS_PERCENTAGE_BELOW
+def perc_below(sorted_numbers):
+    i = len(sorted_numbers) * KEYS_PERCENTAGE_BELOW
     rem = i - int(i)
     j = int(i) + 1
-    if j >= len(sorted_durations):
-        j = len(sorted_durations) - 1
-    most_below = sorted_durations[int(i)] * (1 - rem) + sorted_durations[j] * rem
+    if j >= len(sorted_numbers):
+        j = len(sorted_numbers) - 1
+    most_below = sorted_numbers[int(i)] * (1 - rem) + sorted_numbers[j] * rem
     return most_below
 
 
@@ -302,6 +313,7 @@ if __name__ == '__main__':
     print('All durations are milliseconds.')
     print()
     print(f'Loading events from {LOG_PATH.name}')
+    print()
     events = load_events(LOG_PATH)
     print(f"Loaded {len(events):_} events")
 
@@ -400,7 +412,7 @@ if __name__ == '__main__':
                 else:
                     # the duration the just-now-released key is held down with a not-yet-released key
                     # divided by the total duration this key was held down
-                    overlap_percentage = overlap_duration / dur
+                    overlap_percentage = 100 * (overlap_duration / dur)
 
                 duration_between_both_pressed = abs(other_when_down - when_down)
 

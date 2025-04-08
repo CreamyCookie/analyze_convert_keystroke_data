@@ -26,6 +26,7 @@ The following is the output of step 2.
 All durations are milliseconds.
 
 Loading events from filtered_events.csv.gz
+
 Loaded 96_129_950 events
 
 
@@ -224,7 +225,7 @@ Loaded 96_129_950 events
 #### Overlap percentages
 | min | max | avg | median | 99% below |
 |-----|-----|-----|--------|-----------|
-| 0   |   1 |   0 |      0 |         1 |
+| 0   | 100 |  29 |     27 |        83 |
 
 #### Duration between both presses
 | min |   max | avg | median | 99% below |
@@ -252,7 +253,7 @@ Loaded 96_129_950 events
 #### Overlap percentages
 | min | max | avg | median | 99% below |
 |-----|-----|-----|--------|-----------|
-| 0   |   1 |   1 |      0 |         1 |
+| 0   | 100 |  53 |     41 |       100 |
 
 #### Duration between both presses
 | min |   max | avg | median | 99% below |
@@ -301,6 +302,7 @@ as a ratio: `1 : 9.98`
 | 567_537        |            119_237 |
 
 as a ratio: `4.76 : 1`
+
 
 ## Of non-mods
 | type                |     % |
