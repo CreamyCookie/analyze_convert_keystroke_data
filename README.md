@@ -1,5 +1,5 @@
 # Create keystroke dataset to train heuristic tap hold functions 
-The following steps were already done and the resulting QMK code can be found [here](https://github.com/CreamyCookie/qmk_userspace/keyboards/ducktopus/keymaps/vial/features/).
+The following steps were already done and the resulting QMK code can be found [here](https://github.com/CreamyCookie/qmk_userspace/tree/main/keyboards/ducktopus/keymaps/vial/features).
 
 Of course, you may want to change settings and redo them.
 
